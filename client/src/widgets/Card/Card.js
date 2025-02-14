@@ -1,4 +1,4 @@
-const { useState } = require('react');
+import { useState } from 'react'
 
 export default function Game(data, theme) {
   const [index, setIndex] = useState(0);
