@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function Game(data, theme) {
+  const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
@@ -14,18 +16,22 @@ export default function Game(data, theme) {
   ];
 
   function onClickHandler(answer) {
+
     setSelectedAnswer(answer);
     if (answer === currentQuestion.correctAnswer) {
       setTimeout(() => {
         if (index + 1 < dataSorted.length) {
           setIndex(index + 1);
         } else {
-          alert('Игра окончена! Кросавчег!');
+          navigate('/WinPage');
+          // alert('Игра окончена! Кросавчег!');
+          
         }
         setSelectedAnswer(null);
       }, 500);
     }
   }
+  
   return (
     <>
       <h2>{currentQuestion.question}</h2>
@@ -33,11 +39,6 @@ export default function Game(data, theme) {
         <button
           key={i}
           onClick={() => onClickHandler(answer)}
-          style={{
-            margin: '5px',
-            padding: '10px',
-            backgroundColor: selectedAnswer === answer ? 'lightgray' : 'white',
-          }}
         >
           {answer}
         </button>
